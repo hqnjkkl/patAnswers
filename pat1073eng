@@ -1,0 +1,90 @@
+	//pat advanced level 1073	Scientific Notation (20)
+	//16:18 ->16:21->16:46
+// as that is a regular expression, I can deside some positions.calculate the 
+// size of the old point position and the new point position is very important.
+#include <stdio.h>
+#include <string.h>
+
+char num[10240];
+int findPos(char match,int n)
+{
+	int i =0;
+	for(i=1;i<n;i++)
+	{
+		if(num[i]==match)
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+int main()
+{
+	int i=0,j=0;
+	int len,ePos,fraLen,tmp=0,pow=1,sum=0;
+	scanf("%s",num);
+	len = strlen(num);
+	if(num[0]=='-')
+	{
+		printf("-");
+	}
+	ePos = findPos('E',len);
+	fraLen = ePos-3;
+	tmp = 0,pow = 1,sum=0;
+	for(i=len-1;i>ePos+1;i--)
+	{
+		tmp = pow*(num[i]-'0');
+		sum += tmp;
+		pow *=10;
+	}
+	if(sum==0)
+	{
+		for(i=1;i<ePos;i++)
+		{
+			printf("%c",num[i]);
+		}
+		printf("\n");
+		return 0;
+	}
+	if(num[ePos+1]=='+')
+	{
+		printf("%c",num[1]);
+		if(sum<fraLen)
+		{
+			for(i=3;i<ePos;i++)
+			{
+				printf("%c",num[i]);
+				if(i==sum+2)
+				{
+					printf(".");
+				}
+			}
+		}else
+		{
+			for(i=3;i<ePos;i++)
+			{
+				printf("%c",num[i]);
+			}
+			for(i=0;i<sum-fraLen;i++)
+			{
+				printf("0");
+			}
+		}
+	}else
+	{
+		printf("0.");
+		for(i=0;i<sum-1;i++)
+		{
+			printf("0");
+		}
+		for(i=1;i<ePos;i++)
+		{
+			if(i!=2)
+			{
+				printf("%c",num[i]);
+			}
+		}
+	}
+	printf("\n");
+	return 0;
+}
