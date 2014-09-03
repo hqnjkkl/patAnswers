@@ -1,0 +1,79 @@
+//1074. Reversing Linked List (25)
+//19:21->19:28 ->19:53 get 17 ->19:58 get 25;I should carefully calculate the next address
+// of the current node. I should calculate the size of the total list
+//reverse the linkedList,by the sublist size. I must understand every sentences of the
+//problem. Then I can write the program
+#include <stdio.h>
+
+struct Node
+{
+	int add;
+	int data;
+	int next;
+};
+Node input[100003];
+Node ordered[100003];
+int main()
+{
+	int i,j,head,add,n,k,newSize;
+	scanf("%d%d%d",&head,&n,&k);
+	for(i=0;i<n;i++)
+	{
+		scanf("%d",&add);
+		scanf("%d%d",&input[add].data,&input[add].next);
+		input[add].add = add;
+	}
+	j = 0;
+	add = head;
+	while(add!=-1) // this place should be add
+	{
+		ordered[j++] = input[add];
+		add = input[add].next;
+	}
+	newSize = j;
+	for(i=0;i<newSize;i+=k)
+	{
+		if(newSize>=k+i)
+		{
+			for(j=i+k-1;j>=i;j--)
+			{
+				printf("%05d %d ",ordered[j].add,ordered[j].data);
+				if(j!=i)
+				{
+					printf("%05d\n",ordered[j-1].add);
+				}else
+				{
+					if(newSize-i>k)
+					{
+						// there are two judge here
+						if(newSize>=i+2*k) // greate than or equal than
+						{
+							printf("%05d\n",ordered[i+2*k-1].add);//subscribe one
+						}else
+						{
+							printf("%05d\n",ordered[i+k].add);
+						}
+					}else
+					{
+						printf("-1\n");
+					}
+				}
+			}
+		}else
+		{
+			// the order should not be reversed
+			for(j=i;j<newSize;j++)
+			{
+				printf("%05d %d ",ordered[j].add,ordered[j].data);
+				if(j!=newSize-1)
+				{
+					printf("%05d\n",ordered[j+1].add);
+				}else
+				{
+					printf("-1\n");
+				}
+			}
+		}
+	}
+	return 0;
+}
