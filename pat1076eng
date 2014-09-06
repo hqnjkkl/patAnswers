@@ -1,0 +1,79 @@
+//21:04 ->21:22 ->21:37 
+//1076. Forwards on Weibo (30)
+// It is a problem about bfs. At first, understand the question is very important. The maximum potential forwards. is the
+// people we can traverse in the bfs. But we should use level traverse, because there is a limit of the maximum forward
+// level. Then run the example by your hand so you can understand the example.
+// do not give up, you should be in heart that, you can finish the 4 problems.
+// maybe the problem is very difficults at the front, but I may solve the last problem very 
+// quickly
+
+#include <stdio.h>
+#include <queue>
+
+#define MAX 1003
+using namespace std;
+int graph[MAX][MAX];
+int visit[MAX];
+int n,l;
+int bfs(int query);
+int main()
+{
+	int i,j,flos,fllow,m,q;
+	scanf("%d%d",&n,&l);
+	for(i=1;i<=n;i++)
+	{
+		scanf("%d",&flos);
+		for(j=0;j<flos;j++)
+		{
+			scanf("%d",&fllow);
+			graph[fllow][i] = 1;
+		}
+	}
+	scanf("%d",&m);
+	for(i=0;i<m;i++)
+	{
+		scanf("%d",&q);
+		for(j=0;j<=n;j++)
+		{
+			visit[j] = 0;
+		}
+		int sum = bfs(q);
+		printf("%d\n",sum);
+	}
+	return 0;
+}
+
+int bfs(int query)
+{
+	int i,j,next,levels = 0,sum=0,size=0;
+	visit[query] = 1;
+	queue<int> que;
+	que.push(query);
+	while(que.size()>0)
+	{
+		size = que.size();
+		for(i=0;i<size;i++)
+		{
+			next = que.front();
+			que.pop();
+			for(j=1;j<=n;j++)
+			{
+				if(visit[j]==0)
+				{
+					if(graph[next][j]==1)
+					{
+						visit[j] = 1;
+						que.push(j);
+						sum++;
+					}
+				}
+			}
+		}
+		levels++;
+		if(levels==l)
+		{
+			break;
+		}
+	}
+	return sum;
+}
