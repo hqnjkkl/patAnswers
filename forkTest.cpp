@@ -25,15 +25,15 @@ int main()
     return 0;
 }
 
-//void product()
-//{
-//    while(!P(s))
-//    {
-//        wait();
-//    }
-//    queue.push();
-//    V(s);
-//    notify();
-//    return ;
-//}
+void product()
+{
+   while(!P(s))
+   {
+       wait();
+   }
+   queue.push();
+   V(s);
+   notify();
+   return ;
+}
 
